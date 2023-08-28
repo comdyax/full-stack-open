@@ -31,10 +31,12 @@ sequenceDiagram
   activate server
   server-->>browser: javascript file
   deactivate server
+  Note right of browser: browser starts executing js code which fetches json data from server
 
   browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
   activate server
-  server-->>browser: json file
+  server-->>browser: json data
   deactivate server
+  Note right of browser: callback function is executed by browser to render the notes
 
 ```
