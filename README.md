@@ -1,3 +1,3 @@
 # full stack open
 
-In this repository are the exercieses for the full stack open course
+In this repository are the exercises for the full stack open course
