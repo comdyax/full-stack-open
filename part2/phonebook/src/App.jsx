@@ -51,7 +51,25 @@ const App = () => {
     }
     const arr = persons.map(person => person.name)
     if (arr.includes(newPerson.name)) {
-      alert(`${newPerson.name} is already added to the phonebook`)
+      const updatePerson = persons.find(person => person.name === newPerson.name)
+      if (updatePerson.number === newNumber) {
+        alert(`${updatePerson.name} is already in the phonebook.`)
+      } else {
+        if (window.confirm(`${updatePerson.name} is already in the Phonebook. Do you want to replace the old number with the new number?`)) {
+          const uPerson = {
+            name: updatePerson.name,
+            number: newNumber,
+            id: updatePerson.id
+          }
+          personService
+            .update(updatePerson.id, uPerson)
+            .then(returnedPerson => {
+              setPersons(persons.filter(person => person.id !== returnedPerson.id).concat(returnedPerson))
+              setNewName('')
+              setNewNumber('')
+            })
+        }
+      }
     } else {
       personService
         .create(newPerson)
