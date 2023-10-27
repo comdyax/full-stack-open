@@ -11,13 +11,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
 
-  useEffect(
+  useEffect(() => {
     personService
       .getAll()
       .then(initialPhonebook => {
         setPersons(initialPhonebook)
-      }),
-    [])
+      })
+  }, [])
 
   const handleNewName = (event) => {
     setNewName(event.target.value)
@@ -31,6 +31,17 @@ const App = () => {
     setNewSearch(event.target.value)
   }
 
+  const handleDelete = (id) => {
+    const personToRemove = persons.find(person => person.id === id).name
+    if (window.confirm(`Do you really want to remove ${personToRemove} from the Phonebook ?`)) {
+      personService
+        .remove(id)
+        .then(removedPerson => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+    }
+  }
+
   const addPerson = (event) => {
     event.preventDefault()
     const newPerson = {
@@ -42,7 +53,6 @@ const App = () => {
     if (arr.includes(newPerson.name)) {
       alert(`${newPerson.name} is already added to the phonebook`)
     } else {
-      /**
       personService
         .create(newPerson)
         .then(returnedPerson => {
@@ -50,8 +60,6 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
- */
-
     }
   }
 
@@ -70,7 +78,7 @@ const App = () => {
       <h2>add a new Person</h2>
       <PersonForm handlers={handlers} />
       <h2>Numbers</h2>
-      <Person persons={persons} newSearch={newSearch} />
+      <Person persons={persons} newSearch={newSearch} label="delete" deleteHandler={handleDelete} />
     </div>
   )
 }
