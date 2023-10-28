@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import Person from './components/Person'
 import PersonForm from './components/PersonForm'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 
 const App = () => {
@@ -45,6 +46,15 @@ const App = () => {
             setMessage(null)
           }, 5000)
         })
+        .catch(error => {
+          setErrorMessage(
+            `Information of '${personToRemove}' was already removed from server`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setPersons(persons.filter(person => person.id !== id))
+        })
     }
   }
 
@@ -80,6 +90,17 @@ const App = () => {
               setTimeout(() => {
                 setMessage(null)
               }, 5000)
+            })
+            .catch(error => {
+              setErrorMessage(
+                `Information of '${newName}' was already removed from server`
+              )
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 5000)
+              setNewName('')
+              setNewNumber('')
+              setPersons(persons.filter(person => person.id !== updatePerson.id))
             })
         }
       }
@@ -117,18 +138,6 @@ const App = () => {
       <PersonForm handlers={handlers} />
       <h2>Numbers</h2>
       <Person persons={persons} newSearch={newSearch} label="delete" deleteHandler={handleDelete} />
-    </div>
-  )
-}
-
-const Notification = ({ message, messageType }) => {
-  if (message === null) {
-    return null
-  }
-
-  return (
-    <div className={messageType}>
-      {message}
     </div>
   )
 }
