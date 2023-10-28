@@ -24,6 +24,16 @@
       "name": "Charlie Parker",
       "number": "012-145463",
       "id": 5
+    },
+    {
+      "name": "John Coltrane",
+      "number": "5839-124082735",
+      "id": 6
+    },
+    {
+      "name": "Steve Grossman",
+      "number": "1234-1234",
+      "id": 7
     }
   ]
 }
