@@ -7,7 +7,7 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [newSearch, setNewSearch] = useState('')
   const [showed, setShowed] = useState(0)
-  const [newRequest, setNewRequest] = useState(0)
+  const [countriesNew, setCountriesNew] = useState([])
 
   useEffect(() => {
     countryService
@@ -15,17 +15,18 @@ const App = () => {
       .then(allCountries => {
         setCountries(allCountries)
       })
-  }, [newRequest])
+  }, [])
 
   const handleNewSearch = (event) => {
     if(showed === 1) {
       setShowed(0)
-      setNewRequest(newRequest === 1 ? 0 : 1)
+      setCountries(countriesNew)
     }
     setNewSearch(event.target.value)
   }
 
   const handleShow = (country) => {
+    setCountriesNew(countries)
     setCountries([country])
     setShowed(1)
   }

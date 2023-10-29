@@ -35,7 +35,7 @@ const SingleCountry = ({ country, showHandler }) => {
     return (
         <li>
             {country.name.common} &emsp;
-            <button onClick={() => showHandler(country)}>save</button>
+            <button onClick={() => showHandler(country)}>show</button>
         </li>
     )
 }
