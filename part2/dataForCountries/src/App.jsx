@@ -32,7 +32,7 @@ const App = () => {
   }
 
   const mainDiv = {
-    width: '22%',
+    width: '100%',
     margin: 'auto',
     border: '3px solid black',
     padding: '10px',
