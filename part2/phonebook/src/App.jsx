@@ -57,7 +57,7 @@ const App = () => {
   }
 
   const errorHandler = ({ error, newName }) => {
-    if (error.message === 'ValidationError') {
+    if (error.response.data.name === 'ValidationError') {
       setErrorMessage(error.response.data.error)
     } else {
       setErrorMessage(`Information of '${newName}' was already removed from server`)
