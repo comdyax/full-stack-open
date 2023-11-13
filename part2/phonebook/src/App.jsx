@@ -47,7 +47,9 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
-          setErrorMessage(`Information of '${personToRemove}' was already removed from server`)
+          setErrorMessage(
+            `Information of '${personToRemove}' was already removed from server`
+          )
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
@@ -56,18 +58,18 @@ const App = () => {
     }
   }
 
-  const errorHandler = ({ error, newName }) => {
-    if (error.response.data.name === 'ValidationError') {
-      setErrorMessage(error.response.data.error)
-    } else {
+  const errorHandler = (error, id) => {
+    if (error.response === undefined) {
       setErrorMessage(`Information of '${newName}' was already removed from server`)
-      setPersons(persons.filter(person => person.id !== updatePerson.id))
+      setNewName('')
+      setNewNumber('')
+      setPersons(persons.filter(person => person.id !== id))
+    } else {
+      setErrorMessage(error.response.data.error)
     }
     setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
-    setNewName('')
-    setNewNumber('')
   }
 
   const addPerson = (event) => {
@@ -103,7 +105,7 @@ const App = () => {
                 setMessage(null)
               }, 5000)
             })
-            .catch(error => errorHandler(error, newName))
+            .catch(error => errorHandler(error, updatePerson.id))
         }
       }
     } else {
